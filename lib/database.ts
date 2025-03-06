@@ -1,8 +1,12 @@
-import {neon} from "@neondatabase/serverless"
+// import {neon} from "@neondatabase/serverless"
 
-const sql = neon("postgresql://blehh_owner:npg_JBTl6pS7gGCV@ep-wild-snowflake-a51jj2x1-pooler.us-east-2.aws.neon.tech/blehh?sslmode=require")
+// const sql = neon(process.env.DATABASE_URL!)
 
-export async function loadAllEvents() {
-    const result = await sql("select * from events");
-    return result
-}
+// export async function loadAllEvents() {
+//     const result = await sql("select * from events");
+//     return result
+// }
+
+// // export async function createEvent(name: string, desc: string) {
+
+// // }

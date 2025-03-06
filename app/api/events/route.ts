@@ -7,14 +7,14 @@
 //     return NextResponse.json({result: Number.parseInt(a) + Number.parseInt(b)})
 // }
 
-import { loadAllEvents } from "@/lib/database";
-import { NextRequest, NextResponse } from "next/server";
+// import { loadAllEvents } from "@/lib/database";
+// import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
-    const events = await loadAllEvents()
-    return NextResponse.json({ events: events});
-}
+// export async function GET(request: NextRequest) {
+//     const events = await loadAllEvents()
+//     return NextResponse.json({ events: events});
+// }
 
-export async function createEvent(name: string, desc:string, t0:date) {
-    const result = await sql(``)
-}
+// export async function createEvent(name: string, desc:string, t0:date) {
+//     const result = await sql(``)
+// }

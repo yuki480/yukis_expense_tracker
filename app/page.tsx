@@ -12,7 +12,11 @@ export default function Home() {
     return <SignIn />;
   }
 
-  const email = session.user?.email!;
+  const user = session.user
+  if (!user) {
+    return "error, not signed in";
+  }
+  const email = user.email!;
 
   return (
     <div className="flex min-h-screen bg-blue-100">

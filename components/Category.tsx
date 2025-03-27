@@ -21,11 +21,11 @@ export default function Category({ name, email, onAddAmount }: CategoryProps) {
     <div className="flex items-center gap-4 mb-2">
       <span className="text-[#707CD5] font-semibold w-32">{name}</span>
       <input
-        type="number"
-        placeholder="Amount"
-        value={inputAmount}
-        onChange={e => setInputAmount(e.target.value)}
-        className="border p-2 rounded w-24"
+          type="number"
+          placeholder="Amount"
+          value={inputAmount}
+          onChange={e => setInputAmount(e.target.value)}
+          className="border p-2 rounded w-24"
       />
       <button 
       onClick={handleAdd} 

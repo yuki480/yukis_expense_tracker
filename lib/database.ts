@@ -10,6 +10,10 @@ export type Expense = {
   email: string;
 };
 
+interface CategoryRow {
+  category: string;
+}
+
 export async function loadExpensesDB(range: string, email: string) {
   let query = "SELECT category, SUM(amount) as amount FROM expenses GROUP BY category";
 
@@ -29,9 +33,13 @@ export async function createExpenseOnDB(category: string, amount: number, email:
   await sql(`INSERT INTO expenses (category, amount, email) VALUES ($1, $2, $3)`, [category, amount, email]);
 }
 
-export async function loadCategoriesDB(email: string) {
-  const categories = await sql("SELECT DISTINCT category FROM expenses WHERE email = $1", [email]);
-  return categories.map((row: any) => row.category);
+export async function loadCategoriesDB(email: string): Promise<string[]> {
+  const categories = (await sql(
+    "SELECT DISTINCT category FROM expenses WHERE email = $1",
+    [email]
+  )) as CategoryRow[];
+
+  return categories.map((row) => row.category);
 }
 
 export async function createCategoryOnDB(category: string, email: string) {

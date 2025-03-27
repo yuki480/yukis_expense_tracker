@@ -17,7 +17,7 @@ export default function TodayStats() {
     <div className="min-h-screen bg-blue-100">
       <Sidebar />
       <div className="grid h-screen items-center justify-items-center min-w-[600px] overflow-auto min-h-screen text-gray-800 p-6">
-        <h1 className="text-2xl font-bold text-blue-800 mb-6">today, you've spent...</h1>
+        <h1 className="text-2xl font-bold text-blue-800 mb-6">today, you spent...</h1>
         <ExpenseChart range="today" email={email} />
         <Link href="/" className="text-blue-500 hover:underline">
           back to home

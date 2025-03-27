@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
+import Image from "next/image";
 
 interface Article {
   title: string;
@@ -54,11 +55,10 @@ export default function NewsPage() {
             <div className="flex flex-col items-center w-full">
                 {article.urlToImage && (
                 <div className="w-full h-64 bg-gray-200 flex items-center justify-center mb-4">
-                    <img
-                    src={article.urlToImage}
+                    <Image src={article.urlToImage}
                     alt="News"
-                    className="w-full h-full object-cover rounded-lg"
-                    />
+                    className="w-full h-full object-cover rounded-lg">
+                    </Image>
                 </div>
                 )}
                 <h2 className="text-xl font-semibold text-center text-blue-600 mb-4">{article.title}</h2>

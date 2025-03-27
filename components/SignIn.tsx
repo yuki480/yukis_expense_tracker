@@ -27,7 +27,7 @@ export default function SignIn() {
       </button>
 
       <Image
-        src="/peanut.png"
+        src="/peanut.PNG"
         alt="peanut"
         width={300} 
         height={300} 

@@ -56,10 +56,11 @@ export default function NewsPage() {
                 {article.urlToImage && (
                 <div className="w-full h-64 bg-gray-200 flex items-center justify-center mb-4">
                     <Image
-                    src={article.urlToImage || "/peanut.png"} // peanut as fallback image
+                    src={article.urlToImage || "/peanut.PNG"} // peanut as fallback image
                     alt="News"
                     width={500} 
                     height={300} 
+                    loader={({ src }) => src}
                     className="w-full h-full object-cover rounded-lg"/>
                 </div>
                 )}

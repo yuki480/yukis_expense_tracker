@@ -2,56 +2,55 @@
 
 import { useState, useEffect } from "react";
 import Category from "@/components/Category";
-import TotalAmount from "@/components/TotalAmount";
+import AddCategory from "@/components/AddCategory";
 
-const initialCategories = ["Food", "Transport", "Entertainment", "Shopping", "Other"];
+interface CategoryListProps {
+  email: string;
+}
 
-export default function CategoryList() {
-  const [categoryAmounts, setCategoryAmounts] = useState<{ name: string; amount: number }[]>([]);
-
-  useEffect(() => {
-    const storedData = localStorage.getItem("categoryAmounts");
-    if (storedData) {
-      setCategoryAmounts(JSON.parse(storedData));
-    }
-  }, []);
+export default function CategoryList({ email }: CategoryListProps) {
+  const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
-    localStorage.setItem("categoryAmounts", JSON.stringify(categoryAmounts));
-  }, [categoryAmounts]);
+    const fetchCategories = async () => {
+      const res = await fetch(`/api/expenses?email=${email}`);
+      const data = await res.json();
+      setCategories(data.categories || []);
+    };
 
-  const handleAddAmount = (category: string, amount: number) => {
-    setCategoryAmounts((prev) => {
-      const updatedCategories = prev.map((item) =>
-        item.name === category ? { ...item, amount: item.amount + amount } : item
-      );
+    fetchCategories();
+  }, [email]);
 
-      if (!prev.find((item) => item.name === category)) {
-        updatedCategories.push({ name: category, amount });
-      }
+  const handleAddCategory = async (newCategory: string) => {
+    setCategories((prevCategories) => [...prevCategories, newCategory]);
 
-      return updatedCategories;
+    // inserting a "dummy" expense with 0 amount
+    await fetch("/api/expenses", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ category: newCategory, amount: 0, email }),
+    });
+
+    const res = await fetch(`/api/expenses?email=${email}`);
+    const data = await res.json();
+    setCategories(data.categories || []);
+  };
+
+  const handleAddAmount = async (category: string, amount: number, email: string) => {
+    await fetch("/api/expenses", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ category, amount, email }),
     });
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 shadow">
-      <h2 className="text-xl mb-4">Daily Expense Tracker</h2>
-      
-      {initialCategories.map((category) => (
-        <Category key={category} name={category} onAddAmount={handleAddAmount} />
+    <div className="max-w-lg mx-auto p-6 border border-blue-500 rounded-lg shadow bg-white">
+      {categories.map((category) => (
+        <Category key={category} name={category} email={email} onAddAmount={handleAddAmount} />
       ))}
-
-      <div className="mt-4">
-        {categoryAmounts.map(({ name, amount }) => (
-          <div key={name} className="flex justify-between p-2 border-gray-300">
-            <span>{name}</span>
-            <span>${amount.toFixed(2)}</span>
-          </div>
-        ))}
-      </div>
-
-      <TotalAmount categoryAmounts={categoryAmounts} />
+      <AddCategory onAddCategory={handleAddCategory} />
     </div>
   );
 }
+

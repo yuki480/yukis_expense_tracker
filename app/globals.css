@@ -1,6 +1,6 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
@@ -15,7 +15,7 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  background-color: #add8e6; /* Baby Blue */
+  color: #333; /* Dark text for contrast */
   font-family: Arial, Helvetica, sans-serif;
 }

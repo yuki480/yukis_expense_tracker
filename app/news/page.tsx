@@ -55,10 +55,12 @@ export default function NewsPage() {
             <div className="flex flex-col items-center w-full">
                 {article.urlToImage && (
                 <div className="w-full h-64 bg-gray-200 flex items-center justify-center mb-4">
-                    <Image src={article.urlToImage}
+                    <Image
+                    src={article.urlToImage || "/peanut.png"} // peanut as fallback image
                     alt="News"
-                    className="w-full h-full object-cover rounded-lg">
-                    </Image>
+                    width={500} 
+                    height={300} 
+                    className="w-full h-full object-cover rounded-lg"/>
                 </div>
                 )}
                 <h2 className="text-xl font-semibold text-center text-blue-600 mb-4">{article.title}</h2>
